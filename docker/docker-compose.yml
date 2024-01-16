@@ -1,0 +1,18 @@
+version: '3.4'
+
+services:
+  python-to-cpp:
+    build:
+      context: ../
+      dockerfile: ./docker/Dockerfile
+    tty: true
+    working_dir: /app
+    volumes:
+      - ../:/app
+    env_file:
+      - ./env/.env
+    command:
+      - /bin/bash
+      - -c
+      - |
+        sleep 5d
