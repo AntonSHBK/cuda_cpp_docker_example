@@ -3,7 +3,7 @@ cmake_minimum_required(VERSION 3.25.1 FATAL_ERROR)
 project(
     cpp_code 
     VERSION 0.1.0
-    DESCRIPTION "cpp_to_python description"
+    DESCRIPTION "cpp_code description"
 )
 
 # Standarts
@@ -20,13 +20,13 @@ set(PROJECT_INCLUDE_DIR "include/my_lib")
 # Headers files
 set(
     HEADERS 
-    ${PROJECT_INCLUDE_DIR}/my_include_file.h
+    ${PROJECT_INCLUDE_DIR}/file_hrader.h
 )
 
 # Source files
 set(
     SOURCE
-    ${PROJECT_SOURCE_DIR}/my_cpp_file.cpp
+    ${PROJECT_SOURCE_DIR}/file_src.cpp
 )
 
 # Add library
@@ -42,21 +42,19 @@ add_library(
 target_include_directories(${PROJECT_NAME} PUBLIC  include/)
 
 # # OpenMP
-find_package(OpenMP REQUIRED)
-if(NOT OpenMP_CXX_FOUND)
-	message(SEND_ERROR "Failed to find OpenMP.")
+find_package(CUDAToolkit REQUIRED)
+if(NOT CUDAToolkit_CXX_FOUND)
+	message(SEND_ERROR "Failed to find CUDAToolkit.")
 	return()
 else()
-	include_directories(${OpenMP_INCLUDE_DIRS})
-    message("OpenMP FOUND dir is ${OpenMP_INCLUDE_DIRS}.")
+	include_directories(${CUDAToolkit_INCLUDE_DIRS})
+    message("CUDAToolkit FOUND dir is ${CUDAToolkit_INCLUDE_DIRS}.")
 endif()
-
-set(CMAKE_CXX_FLAGS "-fopenmp")
 
 # Указание подключаемых библиотек
 target_link_libraries(
     ${projectName} 
-    OpenMP::OpenMP_CXX 
+    CUDA::cudart 
 )
 
 # Tests dirs
