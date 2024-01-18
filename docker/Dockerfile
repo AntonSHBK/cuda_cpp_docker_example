@@ -16,6 +16,8 @@ RUN apt-get update && \
         pybind11-dev
 RUN apt update && apt clean && rm -rf /var/lib/apt/lists/*
 
-# Python dependences
+# Copy project
+COPY . .
+
 COPY requirements.txt .
 RUN pip install --no-cache-dir --upgrade -r requirements.txt
